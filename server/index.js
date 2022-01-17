@@ -17,6 +17,9 @@ mongoose.connect(DB, {
 
 const PORT = process.env.PORT || 8000
 
+//Parse JSON Objects
+app.use(express.json());
+
 //Endpoints
 app.use('/api/users', UserRoutes);
 
