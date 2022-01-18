@@ -2,7 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const app = express();
-const UserRoutes = require('./routes/userRoute');
+const UserRouter = require('./routes/userRoute');
+const AuthRouter = require('./routes/authRoute');
 
 dotenv.config({path: './config.env'});
 
@@ -21,7 +22,8 @@ const PORT = process.env.PORT || 8000
 app.use(express.json());
 
 //Endpoints
-app.use('/api/users', UserRoutes);
+app.use('/api/users', UserRouter);
+app.use('/api/auth', AuthRouter);
 
 app.listen(PORT, () => {
   console.log(`running app on port ${PORT}`);
