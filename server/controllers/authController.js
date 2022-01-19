@@ -1,4 +1,5 @@
 const User = require('./../models/userModel');
+const jwt = require('jsonwebtoken');
 
 exports.signup = async (req, res) => {
   try{
@@ -32,14 +33,24 @@ exports.login = async (req, res) => {
 
     //Checks password
     const unHashedPassword = await user.checkPassword();
-    unHashedPassword !== req.body.password && res.status(401).json({message:'wrong credentials'})
+    unHashedPassword !== req.body.password && res.status(401).json({message:'wrong credentials'});
+
+    //Creates JWT token for user
+    const accessToken = jwt.sign({
+        id: user._id,
+        isAdmin: user.isAdmin
+      },
+      process.env.JWT_SECRET,
+      {expiresIn: "3h"}
+    );
 
     //Sends JSON users object without exposing password
-    const {password, ...otherFields} = user._doc; //Note: there is another way to do this using query middleware in the model
+    const {password, ...otherFields} = user._doc;
 
     res.status(200).json({
       message:'success',
-      data: otherFields
+      ...otherFields,
+      accessToken
     });
   }catch(err){
     res.status(500).json({

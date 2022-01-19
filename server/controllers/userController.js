@@ -1,28 +1,18 @@
 const User = require('./../models/userModel');
+const cryptoJS = require('crypto-js');
 
-// exports.test = (req, res) => {
-//   res.send('userdata route');
-// };
-//
-// exports.testPost = async (req, res, next) => {
-//   try{
-//     const {username, email, password} = req.body;
-//     console.log(req.body)
-//
-//     await User.create({
-//       username:username,
-//       email:email,
-//       password:password
-//     })
-//
-//     res.status(200).json({
-//       message:'success'
-//     });
-//
-//   }catch(err){
-//     res.status(400).json({
-//         message:'failed',
-//         error: err
-//     })
-//   }
-// }
+exports.updateMe = async (req, res) => {
+  if(req.body.password){
+    req.body.password =  await cryptoJS.AES.encrypt(req.body.password, process.env.PASS_SECRET).toString();
+  }
+
+  try{
+    const updateUser = await User.findByIdAndUpdate(req.params.id, req.body, {new:true});
+    res.status(200).json(updateUser);
+  }catch(err){
+    res.status(500).json({
+      message:'failed',
+      error:err
+    })
+  }
+}
