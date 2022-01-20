@@ -28,14 +28,14 @@ exports.signup = async (req, res) => {
 exports.login = async (req, res) => {
   try{
     //Check to see if user exists
-    const user = await User.findOne({username:req.body.username});
+    const user = await User.findOne({username:req.body.username})
     !user && res.status(401).json({message:'wrong credentials'})
 
     //Checks password
     const unHashedPassword = await user.checkPassword();
     unHashedPassword !== req.body.password && res.status(401).json({message:'wrong credentials'});
 
-    //Creates JWT token for user
+    //Creates JWT token
     const accessToken = jwt.sign({
         id: user._id,
         isAdmin: user.isAdmin
@@ -45,7 +45,7 @@ exports.login = async (req, res) => {
     );
 
     //Sends JSON users object without exposing password
-    const {password, ...otherFields} = user._doc;
+    const {password, ...otherFields} = user._doc; 
 
     res.status(200).json({
       message:'success',
