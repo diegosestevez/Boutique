@@ -35,9 +35,9 @@ const CartRoute = () => useRoutes([
   {path: "/cart", element: <Cart/>}
 ])
 
-const ErrorRoute = () => useRoutes([
-  {path:"*", element: <Error/>}
-])
+// const ErrorRoute = () => useRoutes([
+//   {path:"*", element: <Error/>}
+// ])
 
 function App() {
   const user = true;
@@ -49,7 +49,9 @@ function App() {
       {!user && <RegisterRoutes/>}
       {!user && <LoginRoute/>}
       <CartRoute/>
-      <ErrorRoute/>
+      {
+        //<ErrorRoute/>
+      }
     </Router>
   );
 }

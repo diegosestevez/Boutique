@@ -30,30 +30,26 @@ const Products = ({cat, filters, sort}) => {
   },[cat]);
 
   useEffect(()=>{
-    let removeDuplicateItemValues = [];
-
+    let itemArray = [];
     if(cat){
-      let itemValues = []
-      const filterValues = Object.values(filters) // ['Red','M']
+      const {color, size} = filters
+
       products.forEach(item => {
-        const {color, size} = item
+        if(color === undefined || size === undefined) itemArray.push(item);
 
-        let colorResult = filterValues.filter(el => color.includes(el))
-        let sizeResult = filterValues.filter(el => size.includes(el))
+        const checkColor = item.color.every(el => item.color.includes(color));
+        const checkSize = item.size.every(el => item.size.includes(size));
 
-        if(colorResult.length > 0) itemValues.push(item)
-        if(sizeResult.length > 0) itemValues.push(item)
-
-        removeDuplicateItemValues = [...new Set(itemValues)]
+        if(checkColor && checkSize) itemArray.push(item)
       });
     }
-    setFilteredProducts(removeDuplicateItemValues);
+    setFilteredProducts([...itemArray]);
   },[products, cat, filters])
 
   return (
       <Container>
-        {popularProducts.map(item => (
-          <Product item={item} key={item.id}/>
+        {filteredProducts.map(item => (
+          <Product item={item} key={item._id}/>
         ))}
       </Container>
   )
