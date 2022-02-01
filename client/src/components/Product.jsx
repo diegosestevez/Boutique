@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {ShoppingCartOutlined, SearchOutlined, FavoriteBorderOutlined} from '@material-ui/icons'
+import {Link} from 'react-router-dom'
 
 //Info component must be defined before parent Container in order to apply pseudo elements
 const Info = styled.div`
@@ -76,7 +77,9 @@ const Product = ({item}) => {
             <ShoppingCartOutlined/>
           </Icon>
           <Icon>
-            <SearchOutlined/>
+            <Link to={`/product/${item._id}`}>
+              <SearchOutlined/>
+            </Link>
           </Icon>
           <Icon>
             <FavoriteBorderOutlined/>

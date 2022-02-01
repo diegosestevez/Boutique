@@ -29,26 +29,50 @@ const Products = ({cat, filters, sort}) => {
     getProducts()
   },[cat]);
 
+  // useEffect(()=>{
+  //   let itemArray = [];
+  //   if(cat){
+  //     const {color, size} = filters
+  //
+  //     products.forEach(item => {
+  //       if(color === undefined || size === undefined) itemArray.push(item);
+  //
+  //       const checkColor = item.color.every(el => item.color.includes(color));
+  //       const checkSize = item.size.every(el => item.size.includes(size));
+  //
+  //       if(checkColor && checkSize) itemArray.push(item)
+  //     });
+  //   }
+  //   setFilteredProducts([...itemArray]);
+  // },[products, cat, filters])
+
   useEffect(()=>{
-    let itemArray = [];
-    if(cat){
-      const {color, size} = filters
+    cat && setFilteredProducts(
+      products.filter(item => Object.entries(filters).every(([key, value])=>
+        item[key].includes(value)
+    ))
+  );
+  },[products,cat,filters])
 
-      products.forEach(item => {
-        if(color === undefined || size === undefined) itemArray.push(item);
-
-        const checkColor = item.color.every(el => item.color.includes(color));
-        const checkSize = item.size.every(el => item.size.includes(size));
-
-        if(checkColor && checkSize) itemArray.push(item)
-      });
+  useEffect(()=>{
+    if(sort==='newest'){
+      setFilteredProducts(prev => [...prev].sort((a,b)=> a.createdAt - b.createdAt))
+    }else if(sort==='asc'){
+      setFilteredProducts(prev => [...prev].sort((a,b)=> a.price - b.price))
+    }else{
+      setFilteredProducts(prev => [...prev].sort((a,b)=> b.price - a.price))
     }
-    setFilteredProducts([...itemArray]);
-  },[products, cat, filters])
+  }, [sort])
 
   return (
       <Container>
-        {filteredProducts.map(item => (
+        {cat
+          ? filteredProducts.map(item => (
+          <Product item={item} key={item._id}/>
+          ))
+          : products
+            .slice(0,8)
+            .map(item => (
           <Product item={item} key={item._id}/>
         ))}
       </Container>
