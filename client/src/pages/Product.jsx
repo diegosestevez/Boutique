@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import styled from 'styled-components';
 import Navbar from './../components/Navbar';
 import Announcement from './../components/Announcement';
@@ -6,6 +6,8 @@ import Newsletter from './../components/Newsletter';
 import Footer from './../components/Footer';
 import {Add, Remove} from '@material-ui/icons';
 import {mobile, tablet} from './../responsive';
+import {useLocation} from 'react-router-dom';
+import {publicRequest} from './../requestMethods';
 
 const Container = styled.div``
 
@@ -119,45 +121,66 @@ const Button = styled.button`
 `
 
 const Product = () => {
+  const location = useLocation();
+  const id = location.pathname.split('/')[2];
+  const [product, setProduct] = useState({})
+  const [quantity, setQuantity] = useState(1)
+  const [color, setColor] = useState('')
+  const [size, setSize] = useState('')
+
+  useEffect(()=>{
+    const getProduct = async () => {
+      try{
+        const res = await publicRequest.get("/products/"+id)
+        setProduct(res.data.product)
+      }catch(err){
+        console.log(err)
+      }
+    }
+      getProduct();
+  },[id])
+
+  const handleQuantity = (type) =>{
+    if(type === "dec"){
+      quantity > 1 && setQuantity(quantity - 1);
+    }else{
+      setQuantity(quantity + 1);
+    }
+  }
+
   return (
     <Container>
       <Navbar/>
       <Announcement/>
       <Wrapper>
         <ImageContainer>
-          <Image src='https://d3o2e4jr3mxnm3.cloudfront.net/Mens-Jake-Guitar-Vintage-Crusher-Tee_68382_1_lg.png' />
+          <Image src={product.img} />
         </ImageContainer>
         <InfoContainer>
-          <Title>Denim Jumpsuit</Title>
-          <Description>
-            Proactive standard setters conservatively enable world-class big datas for our propositions.
-            Ethically touching base about revolutionizing organic growths will make us leaders in the mission critical core competency industry.
-            Our synergy development lifecycle enables end-to-end, value-added brands. Efficiencies will come from conservatively growing our ballpark figures.
-           </Description>
-          <Price>$ 20</Price>
+          <Title>{product.title}</Title>
+          <Description>{product.desc}</Description>
+          <Price>$ {product.price}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              <FilterColor color='black'></FilterColor>
-              <FilterColor color='darkblue'></FilterColor>
-              <FilterColor color='gray'></FilterColor>
+              {product.color?.map(color =>(
+                <FilterColor color={color} key={color} onClick={()=> setColor(color)}></FilterColor>
+              ))}
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
-              <FilterSize>
-                <FilterSizeOption>XS</FilterSizeOption>
-                <FilterSizeOption>S</FilterSizeOption>
-                <FilterSizeOption>M</FilterSizeOption>
-                <FilterSizeOption>L</FilterSizeOption>
-                <FilterSizeOption>XL</FilterSizeOption>
+              <FilterSize onChange={(e)=> setSize(e.target.value)}>
+              {product.size?.map(size =>(
+                <FilterSizeOption key={size}>{size}</FilterSizeOption>
+              ))}
               </FilterSize>
             </Filter>
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <Remove/>
-              <Amount>1</Amount>
-              <Add/>
+              <Remove onClick={() => handleQuantity("dec")}/>
+              <Amount>{quantity}</Amount>
+              <Add onClick={() => handleQuantity("inc")}/>
             </AmountContainer>
             <Button>Add to Cart</Button>
           </AddContainer>
