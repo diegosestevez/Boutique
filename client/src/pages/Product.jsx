@@ -8,6 +8,8 @@ import {Add, Remove} from '@material-ui/icons';
 import {mobile, tablet} from './../responsive';
 import {useLocation} from 'react-router-dom';
 import {publicRequest} from './../requestMethods';
+import {addProduct} from '../redux/cartRedux';
+import {useDispatch} from 'react-redux';
 
 const Container = styled.div``
 
@@ -123,10 +125,11 @@ const Button = styled.button`
 const Product = () => {
   const location = useLocation();
   const id = location.pathname.split('/')[2];
-  const [product, setProduct] = useState({})
-  const [quantity, setQuantity] = useState(1)
-  const [color, setColor] = useState('')
-  const [size, setSize] = useState('')
+  const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const [color, setColor] = useState('');
+  const [size, setSize] = useState('');
+  const dispatch = useDispatch();
 
   useEffect(()=>{
     const getProduct = async () => {
@@ -140,12 +143,16 @@ const Product = () => {
       getProduct();
   },[id])
 
-  const handleQuantity = (type) =>{
+  const handleQuantity = (type) => {
     if(type === "dec"){
       quantity > 1 && setQuantity(quantity - 1);
     }else{
       setQuantity(quantity + 1);
     }
+  }
+
+  const handleClick = () => {
+    dispatch(addProduct({ ...product, quantity, color, size }));
   }
 
   return (
@@ -182,7 +189,7 @@ const Product = () => {
               <Amount>{quantity}</Amount>
               <Add onClick={() => handleQuantity("inc")}/>
             </AmountContainer>
-            <Button>Add to Cart</Button>
+            <Button onClick={handleClick}>Add to Cart</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>

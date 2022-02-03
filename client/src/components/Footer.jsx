@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Facebook, Pinterest, Twitter, Instagram, Room, Phone, MailOutline} from '@material-ui/icons';
-import {mobile, tablet} from './../responsive';
+import {tablet} from './../responsive';
 
 const Container = styled.div`
   display: flex;

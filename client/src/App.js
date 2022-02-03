@@ -5,7 +5,7 @@ import Product from './pages/Product';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Cart from './pages/Cart';
-import Error from './pages/Error';
+// import Error from './pages/Error';
 import {BrowserRouter as Router, useRoutes} from 'react-router-dom';
 
 const HomeRoute = () => useRoutes([
