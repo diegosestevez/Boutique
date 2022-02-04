@@ -20,14 +20,18 @@ const productSchema = new mongoose.Schema(
       required: [true, 'Product must belong to a category']
     },
     size:{
-      type: String
+      type: Array
     },
     color:{
-      type: String
+      type: Array
     },
     price:{
       type: Number,
       required: [true, 'Product must have a price']
+    },
+    inStock:{
+      type: Boolean,
+      default:true
     }
   },
   { timestamps: true }

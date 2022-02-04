@@ -1,10 +1,16 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import {Add, Remove} from '@material-ui/icons';
 import Navbar from './../components/Navbar';
 import Announcement from './../components/Announcement';
 import Footer from './../components/Footer';
-import {mobile, tablet} from './../responsive'
+import {mobile, tablet} from './../responsive';
+import {useSelector} from 'react-redux';
+import StripeCheckout from 'react-stripe-checkout';
+import {userRequest} from './../requestMethods';
+
+const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.div``
 
@@ -153,6 +159,30 @@ const Button = styled.button`
 `
 
 const Cart = () => {
+  const cart = useSelector(state=>state.cart);
+  const [stripeToken, setStripeToken] = useState(null);
+  const history = useNavigate();
+
+  const onToken = (token)=>{
+    setStripeToken(token)
+  }
+
+  useEffect(()=>{
+    const makeRequest = async () => {
+      try{
+        const res = await userRequest.post('/checkout/payment', {
+          tokenId:stripeToken.id,
+          amount:cart.total*100,
+        })
+        //example of an object sent to stripe in this post request { tokenId: 'tok_JL8945OPYH56OXT234S', amount: 2500 }
+          history('/success');
+      }catch(err){
+        console.log(err)
+      }
+    }
+    stripeToken && makeRequest()
+  },[stripeToken, cart.total, history])
+
   return (
       <Container>
         <Navbar/>
@@ -169,51 +199,35 @@ const Cart = () => {
             </Top>
             <Bottom>
               <Info>
+              {cart.products.map(product=>(
                 <Product>
                   <ProductDetail>
-                    <Image src='https://www.pngarts.com/files/5/Plaid-Skirt-PNG-High-Quality-Image.png'/>
+                    <Image src={product.img}/>
                     <Details>
-                      <ProductName><b>Product:</b> Plaid Skirt</ProductName>
-                      <ProductId><b>ID:</b> 923846710845687</ProductId>
-                      <ProductColor color='tan'/>
-                      <ProductSize><b>Size:</b> 7</ProductSize>
+                      <ProductName><b>Product:</b>{product.title}</ProductName>
+                      <ProductId><b>ID:</b> {product._id}</ProductId>
+                      <ProductColor color={product.color}/>
+                      <ProductSize><b>Size:</b>{product.size}</ProductSize>
                     </Details>
                   </ProductDetail>
                   <PriceDetail>
                     <ProductAmountContainer>
                       <Add/>
-                      <ProductAmount>1</ProductAmount>
+                      <ProductAmount>{product.quantity}</ProductAmount>
                       <Remove/>
                     </ProductAmountContainer>
-                    <ProductPrice> $25.99</ProductPrice>
+                    <ProductPrice>$ {product.price * product.quantity}</ProductPrice>
                   </PriceDetail>
                 </Product>
+                ))
+              }
                 <HR/>
-                <Product>
-                  <ProductDetail>
-                    <Image src='https://www.pngarts.com/files/3/Womens-T-Shirt-PNG-High-Quality-Image.png'/>
-                    <Details>
-                      <ProductName><b>Product:</b> Women's T-Shirt - Pride & Prejudice</ProductName>
-                      <ProductId><b>ID:</b> 987856740815987</ProductId>
-                      <ProductColor color='#000059'/>
-                      <ProductSize><b>Size:</b> M</ProductSize>
-                    </Details>
-                  </ProductDetail>
-                  <PriceDetail>
-                    <ProductAmountContainer>
-                      <Add/>
-                      <ProductAmount>1</ProductAmount>
-                      <Remove/>
-                    </ProductAmountContainer>
-                    <ProductPrice> $14.99</ProductPrice>
-                  </PriceDetail>
-                </Product>
               </Info>
               <Summary>
                 <SummaryTitle>ORDER Summary</SummaryTitle>
                 <SummaryItem>
                   <SummaryItemText>Subtotal</SummaryItemText>
-                  <SummaryItemPrice>$ 40.98</SummaryItemPrice>
+                  <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
                 </SummaryItem>
                 <SummaryItem>
                   <SummaryItemText>Estimated Shipping</SummaryItemText>
@@ -225,9 +239,20 @@ const Cart = () => {
                 </SummaryItem>
                 <SummaryItem type='total'>
                   <SummaryItemText>Total</SummaryItemText>
-                  <SummaryItemPrice>$ 40.98</SummaryItemPrice>
+                  <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
                 </SummaryItem>
-                <Button>CHECKOUT NOW</Button>
+                <StripeCheckout
+                  name='Boutique'
+                  image='./favicon.ico'
+                  description={`Your total is ${cart.total} dollars`}
+                  billingAddress
+                  shippingAddress
+                  amount={cart.total*100}
+                  token={onToken}
+                  stripeKey={KEY}
+                  >
+                  <Button>CHECKOUT NOW</Button>
+                </StripeCheckout>
               </Summary>
             </Bottom>
           </Wrapper>

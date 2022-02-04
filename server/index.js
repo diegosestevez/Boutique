@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const dotenv = require('dotenv');
 const app = express();
 const UserRouter = require('./routes/userRoute');
@@ -7,8 +8,11 @@ const ProductRouter = require('./routes/productRoute');
 const CartRouter = require('./routes/cartRoute');
 const OrderRouter = require('./routes/orderRoute');
 const AuthRouter = require('./routes/authRoute');
+const StripeRoute = require("./routes/stripeRoute");
 
 dotenv.config({path: './config.env'});
+
+app.use(cors());
 
 const DB = process.env.DB
 
@@ -30,6 +34,7 @@ app.use('/api/products', ProductRouter);
 app.use('/api/carts', CartRouter);
 app.use('/api/orders', OrderRouter);
 app.use('/api/auth', AuthRouter);
+app.use("/api/checkout", StripeRoute);
 app.use('*', (req, res) => {
   return res.status(404).json({message: "This route does not exist"});
 })

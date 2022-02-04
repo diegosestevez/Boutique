@@ -5,6 +5,7 @@ import Product from './pages/Product';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Cart from './pages/Cart';
+import Success from './pages/Success';
 // import Error from './pages/Error';
 import {BrowserRouter as Router, useRoutes} from 'react-router-dom';
 
@@ -35,6 +36,11 @@ const CartRoute = () => useRoutes([
   {path: "/cart", element: <Cart/>}
 ])
 
+const SuccessRoute = () => useRoutes([
+  {path: "/success", element: <Success/>}
+])
+
+
 // const ErrorRoute = () => useRoutes([
 //   {path:"*", element: <Error/>}
 // ])
@@ -49,6 +55,7 @@ function App() {
       {!user && <RegisterRoutes/>}
       {!user && <LoginRoute/>}
       <CartRoute/>
+      <SuccessRoute/>
       {
         //<ErrorRoute/>
       }
