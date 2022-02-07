@@ -94,8 +94,12 @@ const Navbar = () => {
           </Logo>
         </Center>
         <Right>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
+          <Link to="/register">
+            <MenuItem>SIGN UP</MenuItem>
+          </Link>
+          <Link to="/login">
+            <MenuItem>LOGIN</MenuItem>
+          </Link>
           <Link to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="secondary">

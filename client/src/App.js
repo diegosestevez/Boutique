@@ -6,59 +6,25 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import Cart from './pages/Cart';
 import Success from './pages/Success';
-// import Error from './pages/Error';
-import {BrowserRouter as Router, useRoutes} from 'react-router-dom';
-
-const HomeRoute = () => useRoutes([
-  {path:"/", element:<Home/>}
-])
-
-const ProductRoute = () => useRoutes([
-  {path: "/product", element: <Product/>},
-  {path: "/product/:id", element: <Product/>}
-])
-
-const ProductsRoutes = () => useRoutes([
-  {path: "/products", element: <ProductList/>},
-  {path: "/products/:categories", element: <ProductList/>}
-])
-
-const LoginRoute = () => useRoutes([
-  {path: "/login", element: <Login/>}
-])
-
-const RegisterRoutes = () => useRoutes([
-  {path: "/register", element: <Register/>},
-  {path: "/signup", element: <Register/>}
-])
-
-const CartRoute = () => useRoutes([
-  {path: "/cart", element: <Cart/>}
-])
-
-const SuccessRoute = () => useRoutes([
-  {path: "/success", element: <Success/>}
-])
-
-
-// const ErrorRoute = () => useRoutes([
-//   {path:"*", element: <Error/>}
-// ])
+import Error from './pages/Error';
+import {BrowserRouter as Router, Route, Routes, Redirect, Navigate} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
 function App() {
-  const user = true;
+  const user = useSelector(state=> state.user.currentUser);
+  // const user = false;
   return (
     <Router>
-      <HomeRoute/>
-      <ProductRoute/>
-      <ProductsRoutes/>
-      {!user && <RegisterRoutes/>}
-      {!user && <LoginRoute/>}
-      <CartRoute/>
-      <SuccessRoute/>
-      {
-        //<ErrorRoute/>
-      }
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/product/:id" element={<Product/>}/>
+        <Route path="/products/:categories" element={<ProductList/>}/>
+        {!user ? <Route path="/login" element={<Login/>} /> : <Route path="/login" element={<Navigate to='/'/>} />}
+        {!user ? <Route path="/register" element={<Register/>} /> : <Route path="/register" element={<Navigate to='/'/>} />}
+        <Route path="/cart" element={<Cart/>}/>
+        <Route path="/success" element={<Success/>}/>
+        <Route path="*" element={<Error/>}/>
+      </Routes>
     </Router>
   );
 }

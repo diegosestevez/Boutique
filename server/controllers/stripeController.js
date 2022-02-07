@@ -6,7 +6,8 @@ exports.payment = async (req, res) => {
     amount: req.body.amount,
     currency: "cad"
   },{
-    api_key: process.env.STRIPE_SECRET_KEY
+    // api_key: process.env.STRIPE_SECRET_KEY
+    apiKey: process.env.STRIPE_SECRET_KEY
   }, (stripeError, stripeResponse) => {
     if(stripeError){
       console.log(stripeError)

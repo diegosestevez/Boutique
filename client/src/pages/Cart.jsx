@@ -175,7 +175,12 @@ const Cart = () => {
           amount:cart.total*100,
         })
         //example of an object sent to stripe in this post request { tokenId: 'tok_JL8945OPYH56OXT234S', amount: 2500 }
-          history('/success');
+          history('/success', {state:
+          {
+            stripeData:res.data, 
+            cart: cart
+          }
+        });
       }catch(err){
         console.log(err)
       }
