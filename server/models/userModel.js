@@ -20,7 +20,8 @@ const userSchema = new mongoose.Schema(
     isAdmin:{
       type: Boolean,
       default: false
-    }
+    },
+    img:{type:String}
   },
   { timestamps: true} //a native MongoDB substitute in place of a createdAt field
 );

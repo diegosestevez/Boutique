@@ -8,7 +8,6 @@ exports.getAllUsers = async (req, res) => {
   try{
     const users = query ? await User.find().sort({_id:-1}).limit(5) : await User.find();
     res.status(200).json({
-      message: 'success',
       users
     });
   }catch(err){

@@ -45,7 +45,7 @@ exports.login = async (req, res) => {
     );
 
     //Sends JSON users object without exposing password
-    const {password, ...otherFields} = user._doc; 
+    const {password, ...otherFields} = user._doc;
 
     res.status(200).json({
       message:'success',

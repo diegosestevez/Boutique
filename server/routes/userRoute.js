@@ -6,6 +6,7 @@ const verifyToken = require('./../utils/verifyToken');
 router
     .route('/')
     .get(verifyToken.protect, verifyToken.restrictToAdmin, userController.getAllUsers)
+    // .get(userController.getAllUsers)
 
 router.get('/stats', verifyToken.protect, verifyToken.restrictToAdmin, userController.getUserStats);
 
