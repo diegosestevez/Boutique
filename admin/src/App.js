@@ -13,13 +13,11 @@ import './app.css';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 function App() {
-  const admin = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser.isAdmin;
+  const admin = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser.isAdmin
+  // const admin = false;
   return (
     <Router>
-    <Routes>
-        <Route path="/login" element={<Login/>}/>
-    </Routes>
-    { admin && (
+    { admin ? (
       <>
         <Topbar/>
         <div className='container'>
@@ -36,7 +34,11 @@ function App() {
           </Routes>
         </div>
       </>
-    )}
+    ):
+    <Routes>
+        <Route path="/" element={<Login/>}/>
+    </Routes>
+  }
     </Router>
   );
 }
