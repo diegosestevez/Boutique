@@ -9,7 +9,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const handleClick = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     login(dispatch,{username, password});
   }
 

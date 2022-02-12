@@ -10,11 +10,16 @@ import Login from './pages/login/Login';
 import Topbar from './components/topbar/Topbar';
 import Sidebar from './components/sidebar/Sidebar';
 import './app.css';
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
+
 
 function App() {
-  const admin = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser.isAdmin
-  // const admin = false;
+  let admin = false;
+
+  //Redux persist containing user object renders after the React component is rendered throwing a 'cannot read property on undefined error' if localStorage is cleared from the dev tools. Try/Catch block is a temporary remedy.
+  try{admin = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser.isAdmin}
+  catch{}
+
   return (
     <Router>
     { admin ? (
@@ -31,12 +36,14 @@ function App() {
             <Route path="/products" element={<ProductList/>}/>
             <Route path="/product/:productId" element={<Product/>}/>
             <Route path="/newproduct" element={<NewProduct/>}/>
+            <Route path="*" element={<Navigate replace to='/'/>}/>
           </Routes>
         </div>
       </>
     ):
     <Routes>
         <Route path="/" element={<Login/>}/>
+        <Route path="*" element={<Navigate replace to='/'/>}/>
     </Routes>
   }
     </Router>
