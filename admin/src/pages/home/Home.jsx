@@ -36,7 +36,7 @@ const Home = () => {
         sortByMonth.map(item=>{
           setUserStats(prev => [
             ...prev,
-            {name:MONTHS[item._id-1], "Active Users": item.total}
+            {name:MONTHS[item._id-1], "Subscribers Joined": item.total}
           ])
         })
       }catch(err){
@@ -49,7 +49,7 @@ const Home = () => {
   return (
     <div className='home'>
       <FeaturedInfo/>
-      <Chart data={userStats} title="User Analytics" dataKey='Active Users' grid/>
+      <Chart data={userStats} title="Newsletter Subscriber Analytics" dataKey='Subscribers Joined' grid/>
       <div className='homeWidgets'>
         <WidgetSm/>
         <WidgetLg/>

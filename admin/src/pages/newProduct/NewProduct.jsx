@@ -27,7 +27,7 @@ const NewProduct = () => {
      <form className="addProductForm">
        <div className="addProductItem">
          <label>Image</label>
-         <input type="file" id="file" onChange={e=>setFile(e.target.files)[0]}/>
+         <input type="file" id="file" onChange={e=>setFile(e.target.files[0])}/>
        </div>
        <div className="addProductItem">
          <label>Title</label>

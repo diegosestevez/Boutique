@@ -15,7 +15,7 @@ const SidebarMenu = ({
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">{sidebarTitle}</h3>
           <ul className="sidebarList">
-              <Link className='sidebarLink' to={sidebarListItem1.toLowerCase()}>
+              <Link className='sidebarLink' to='/'>
                 <li className="sidebarListItem">
                   {sidebarIcon1}
                   {sidebarListItem1}
