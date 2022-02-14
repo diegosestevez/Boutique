@@ -3,10 +3,11 @@ const jwt = require('jsonwebtoken');
 
 exports.signup = async (req, res) => {
   try{
-    const {username, email, password} = req.body;
+    const {username, email, phone, password} = req.body;
 
     const newUser = new User({
       username:username,
+      phone: phone,
       email:email,
       password: password
     });

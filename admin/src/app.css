@@ -2,3 +2,17 @@
   display: flex;
   margin-top: 10px;
 }
+
+.loginContainer{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.4),
+      rgba(255, 255, 255, 0.4)
+    ),
+    url("https://images.pexels.com/photos/8422844/pexels-photo-8422844.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
+      center;
+  background-size: cover;
+}

@@ -1,9 +1,11 @@
 .login{
-  height: 100vh;
+  height: 325px;
+  width: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background-color: white;
 }
 
 .login input{
@@ -14,4 +16,27 @@
 .login button{
   padding: 10px;
   width: 100px;
+  background-color: teal;
+  color: white;
+  padding: 10px;
+  font-family: urbanist;
+  cursor: pointer;
+  border: none;
+}
+
+.login h1{
+  font-family: urbanist;
+}
+
+.login h5{
+  color: darkblue;
+}
+
+.loginText{
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
 }

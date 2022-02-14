@@ -15,6 +15,10 @@ const Login = () => {
 
   return (
     <div className="login">
+      <div className='loginText'>
+        <h1>Boutique.</h1>
+        <h5>Powered By AdminPanel</h5>
+      </div>
       <input type='text' placeholder='username' onChange={e=>setUsername(e.target.value)}/>
       <input type='password' placeholder='password' onChange={e=>setPassword(e.target.value)}/>
       <button onClick={handleClick}>Login</button>

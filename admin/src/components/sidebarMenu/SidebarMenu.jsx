@@ -7,11 +7,9 @@ const SidebarMenu = ({
   sidebarIcon1,
   sidebarIcon2,
   sidebarIcon3,
-  sidebarIcon4,
   sidebarListItem1,
   sidebarListItem2,
-  sidebarListItem3,
-  sidebarListItem4
+  sidebarListItem3
 }) => {
   return(
         <div className="sidebarMenu">
@@ -35,14 +33,6 @@ const SidebarMenu = ({
                 {sidebarListItem3}
               </li>
               </Link>
-              {(sidebarIcon4||sidebarListItem4) &&
-                <Link className='sidebarLink' to={`./../${sidebarListItem4.toLowerCase()}`}>
-                <li className="sidebarListItem">
-                  {sidebarIcon4}
-                  {sidebarListItem4}
-                </li>
-                </Link>
-              }
           </ul>
         </div>
   )

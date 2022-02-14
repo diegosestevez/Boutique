@@ -20,6 +20,7 @@
   font-size: 30px;
   color: darkblue;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .topRight{
@@ -28,6 +29,8 @@
 }
 
 .topbarIconContainer{
+  display: flex;
+  align-items: center;
   position: relative;
   cursor: pointer;
   margin-right: 10px;

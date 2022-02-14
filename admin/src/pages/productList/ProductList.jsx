@@ -4,7 +4,7 @@ import {DataGrid} from '@material-ui/data-grid';
 import {DeleteOutline} from '@material-ui/icons';
 import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {getProducts, deleteProduct} from './../../redux/apiCalls';
+import {getProducts, /*deleteProduct*/} from './../../redux/apiCalls';
 
 const ProductList = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const ProductList = () => {
   },[dispatch]);
 
   const handleDelete = (id) => {
-    deleteProduct(id, dispatch)
+    // deleteProduct(id, dispatch)
   }
 
   const columns = [
@@ -33,7 +33,7 @@ const ProductList = () => {
     { field: 'actions', headerName: 'Actions', width: 150, renderCell: (params) => {
       return(
         <>
-        <Link to={"/product/"+params.row.id}>
+        <Link to={"/product/"+params.row._id}>
           <button className='productListEdit'>Edit</button>
         </Link>
           <DeleteOutline className='productListDelete' onClick={() => handleDelete(params.row._id) }/>

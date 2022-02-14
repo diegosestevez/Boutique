@@ -32,7 +32,7 @@ const FeaturedInfo = () => {
       <div className='featuredItem'>
           <span className='featuredTitle'>Revenue</span>
           <div className='featuredMoneyContainer'>
-              <span className='featuredMoney'>${income[0]&&income[0].total}</span>
+              <span className='featuredMoney'>${income[0]?.total}</span>
               <span className='featuredMoneyRate'>
                 {Math.floor(percentage)}%
                 { percentage < 0
@@ -47,20 +47,13 @@ const FeaturedInfo = () => {
           <span className='featuredSub'>Compared to last month</span>
       </div>
       <div className='featuredItem'>
-          <span className='featuredTitle'>Total Yearly Revenue</span>
+          <span className='featuredTitle'>Annual Revenue</span>
           <div className='featuredMoneyContainer'>
               <span className='featuredMoney'>$ {yearTotal}</span>
+              <span className='featuredMoneyRate'>Annual Target: $1000</span>
+              <span className='featuredMoneyRate'>Target Total Percent: {yearTotal/10}%</span>
           </div>
-      </div>
-      <div className='featuredItem'>
-          <span className='featuredTitle'>Cost</span>
-          <div className='featuredMoneyContainer'>
-              <span className='featuredMoney'>$125</span>
-              <span className='featuredMoneyRate'>
-                +22.6 <ArrowUpward className='featuredIcon'/>
-              </span>
-          </div>
-          <span className='featuredSub'>Compared to last month</span>
+            <span className='featuredSub'>Total Revenue This Year</span>
       </div>
     </div>)
 }

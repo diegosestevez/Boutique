@@ -1,12 +1,14 @@
 import React from 'react';
 import './product.css';
-import {Link} from 'react-router-dom';
-import Chart from '../../components/chart/Chart';
-import {productData} from '../../dummyData';
+import {Link, useLocation} from 'react-router-dom';
 import {Publish} from '@material-ui/icons';
-// import Sidebar from './../../components/sidebar/Sidebar';
+import {useSelector} from 'react-redux';
 
 const Product = () => {
+   const location = useLocation();
+   const productId = location.pathname.split("/")[2];
+
+   const product = useSelector(state => state.product.products.find(product => product._id === productId));
   return (
     <div className='product'>
       <div className='productTitleContainer'>
@@ -16,60 +18,50 @@ const Product = () => {
         </Link>
       </div>
       <div className='productTop'>
-        <div className='productTopLeft'>
-          <Chart data={productData} dataKey='Sales' title='Sales Performance'/>
-        </div>
         <div className='productTopRight'>
           <div className= 'productInfoTop'>
-            <img className='productInfoImg' src='https://cdn.shopify.com/s/files/1/2404/0041/products/blue2_1200x.png?v=1633109112' alt=''/>
-            <span className='productName'>Raycon Earbuds</span>
+            <img className='productInfoImg' src={product.img} alt=''/>
+            <span className='productName'>{product.title}</span>
           </div>
           <div className= 'productInfoBottom'>
             <div className='productInfoItem'>
               <span className='productInfoKey'>id:</span>
-              <span className='productInfoValue'>123</span>
+              <span className='productInfoValue'>{product._id}</span>
             </div>
             <div className='productInfoItem'>
-              <span className='productInfoKey'>sales:</span>
-              <span className='productInfoValue'>5123</span>
-            </div>
-            <div className='productInfoItem'>
-              <span className='productInfoKey'>active:</span>
-              <span className='productInfoValue'>yes</span>
             </div>
             <div className='productInfoItem'>
               <span className='productInfoKey'>in stock:</span>
-              <span className='productInfoValue'>no</span>
+              <span className='productInfoValue'>{`${product.inStock}`}</span>
             </div>
           </div>
         </div>
       </div>
       <div className='productBottom'>
         <form className='productForm'>
-            <form className='productFormLeft'>
+            <div className='productFormLeft'>
               <label>Product Name</label>
-              <input type='text' placeholder='Raycon Earbuds'/>
+              <input type='text' placeholder={product.title}/>
+              <label>Description</label>
+              <input type='text' placeholder={product.desc}/>
+              <label>Price</label>
+              <input type='text' placeholder={product.price}/>
               <label>In Stock</label>
               <select name='inStock' id='inStock'>
-                <option value='yes'>Yes</option>
-                <option value='no'>No</option>
+                <option value='true'>Yes</option>
+                <option value='false'>No</option>
               </select>
-              <label>Active</label>
-              <select name='active' id='active'>
-                <option value='yes'>Yes</option>
-                <option value='no'>No</option>
-              </select>
-            </form>
-            <form className='productFormRight'>
+            </div>
+            <div className='productFormRight'>
               <div className='productUpload'>
-                <img className='productUploadImg' src='https://cdn.shopify.com/s/files/1/2404/0041/products/blue2_1200x.png?v=1633109112' alt=''/>
+                <img className='productUploadImg' src={product.img} alt=''/>
                 <label for='file'>
                   <Publish/>
                 </label>
                 <input type='file' id='file' style={{display:"none"}}/>
               </div>
               <button className='productButton'>Update</button>
-            </form>
+            </div>
         </form>
       </div>
     </div>

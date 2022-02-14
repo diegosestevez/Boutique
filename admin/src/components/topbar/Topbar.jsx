@@ -17,15 +17,15 @@ const Topbar = () => {
     <div className='topbar'>
       <div className='topbarWrapper'>
         <div className="topLeft">
-        <Link to='/'>
-            <span className="logo">AdminPanel</span>
+        <Link to='/' className="logo">
+            <span>AdminPanel</span>
         </Link>
         </div>
         <div className="topRight">
-          <div className='topbarIconContainer'>
-              <ExitToApp onClick={handleClick}/>
+          <div className='topbarIconContainer' onClick={handleClick}>
+              <ExitToApp/>
+              <p>Logout</p>
           </div>
-          <img className="topAvatar" src="https://www.publicdomainpictures.net/pictures/90000/velka/tete-de-pigeon-1398017497xQG.jpg" alt="profile"/>
         </div>
       </div>
     </div>

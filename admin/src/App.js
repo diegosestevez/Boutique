@@ -41,10 +41,12 @@ function App() {
         </div>
       </>
     ):
+    <div className='loginContainer'>
     <Routes>
         <Route path="/" element={<Login/>}/>
         <Route path="*" element={<Navigate replace to='/'/>}/>
     </Routes>
+    </div>
   }
     </Router>
   );
