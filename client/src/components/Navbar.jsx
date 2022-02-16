@@ -89,16 +89,15 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>
-            BOUTIQUE.
-          </Logo>
+          <Link to='/' style={{textDecoration:'none', color:'black'}}>
+            <Logo>
+              BOUTIQUE.
+            </Logo>
+          </Link>
         </Center>
         <Right>
           <Link to="/register">
-            <MenuItem>SIGN UP</MenuItem>
-          </Link>
-          <Link to="/login">
-            <MenuItem>LOGIN</MenuItem>
+            <MenuItem>NEWSLETTER</MenuItem>
           </Link>
           <Link to="/cart">
             <MenuItem>

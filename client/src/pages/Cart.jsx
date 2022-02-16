@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styled from 'styled-components';
-import {Add, Remove} from '@material-ui/icons';
 import Navbar from './../components/Navbar';
 import Announcement from './../components/Announcement';
 import Footer from './../components/Footer';
 import {mobile, tablet} from './../responsive';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import StripeCheckout from 'react-stripe-checkout';
 import {userRequest} from './../requestMethods';
+import {deleteProduct, deleteAllProducts} from './../redux/cartRedux';
 
 const KEY = process.env.REACT_APP_STRIPE;
 
@@ -48,7 +48,6 @@ const TopTexts = styled.div`
 
 const TopText = styled.span`
   text-decoration: underline;
-  cursor: pointer;
   margin: 0px 10px;
   ${tablet({margin:'5px 0px'})};
 `
@@ -105,19 +104,23 @@ const PriceDetail = styled.div`
 
 const ProductAmountContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
 `
 
-const ProductAmount = styled.div`
-  font-size: 24px;
-  margin: 5px;
-  ${tablet({margin:'5px 15px'})};
-`
+const ProductAmount = styled.div``
+
 const ProductPrice = styled.div`
   font-size: 30px;
   font-weight: 200;
   ${tablet({marginBottom:'20px'})};
+`
+
+const ProductDelete = styled.span`
+  padding-top:20px;
+  color: red;
+  cursor: pointer;
 `
 
 const HR = styled.hr`
@@ -143,7 +146,7 @@ const SummaryItem = styled.div`
   justify-content: space-between;
   font-weight: ${props => props.type === 'total' ? '500' : props.type === 'discount' ? '200' : null};
   font-size: ${props => props.type === 'total' && '24px'};
-  color: ${props => props.type === 'discount' && 'red'};
+  color: ${props => props.type === 'discount' && 'teal'};
 `
 const SummaryItemText = styled.span``
 
@@ -162,6 +165,7 @@ const Cart = () => {
   const cart = useSelector(state=>state.cart);
   const [stripeToken, setStripeToken] = useState(null);
   const history = useNavigate();
+  const dispatch = useDispatch();
 
   const onToken = (token)=>{
     setStripeToken(token)
@@ -177,7 +181,7 @@ const Cart = () => {
         //example of an object sent to stripe in this post request { tokenId: 'tok_JL8945OPYH56OXT234S', amount: 2500 }
           history('/success', {state:
           {
-            stripeData:res.data, 
+            stripeData:res.data,
             cart: cart
           }
         });
@@ -188,24 +192,33 @@ const Cart = () => {
     stripeToken && makeRequest()
   },[stripeToken, cart.total, history])
 
+  const handleDelete = (id, price, index) => {
+    dispatch(deleteProduct({id, price, index}))
+  }
+
+  const handleDeleteAll = () => {
+    dispatch(deleteAllProducts())
+  }
+
   return (
       <Container>
         <Navbar/>
         <Announcement/>
           <Wrapper>
-            <Title>YOUR BAG</Title>
+            <Title>YOUR CART</Title>
             <Top>
-              <TopButton>CONTINUE SHOPPING</TopButton>
+              <TopButton onClick={handleDeleteAll}>CLEAR CART</TopButton>
               <TopTexts>
-                <TopText>Shopping Bag (2)</TopText>
-                <TopText>Your Wishlist (0)</TopText>
+                <TopText>Shopping Cart ({cart.quantity})</TopText>
               </TopTexts>
-              <TopButton type='filled'>CHECKOUT NOW</TopButton>
+              <Link to ='/'>
+                <TopButton type='filled'>CONTINUE SHOPPING</TopButton>
+              </Link>
             </Top>
             <Bottom>
               <Info>
-              {cart.products.map(product=>(
-                <Product>
+              {cart.products.map((product, index)=>(
+                <Product key={index}>
                   <ProductDetail>
                     <Image src={product.img}/>
                     <Details>
@@ -213,15 +226,14 @@ const Cart = () => {
                       <ProductId><b>ID:</b> {product._id}</ProductId>
                       <ProductColor color={product.color}/>
                       <ProductSize><b>Size:</b>{product.size}</ProductSize>
+                      <ProductAmount><b>Qty:</b> {product.quantity}</ProductAmount>
                     </Details>
                   </ProductDetail>
                   <PriceDetail>
                     <ProductAmountContainer>
-                      <Add/>
-                      <ProductAmount>{product.quantity}</ProductAmount>
-                      <Remove/>
+                      <ProductPrice>$ {product.price * product.quantity}</ProductPrice>
+                      <ProductDelete onClick={() => handleDelete(product._id, product.price*product.quantity, index)}>DELETE</ProductDelete>
                     </ProductAmountContainer>
-                    <ProductPrice>$ {product.price * product.quantity}</ProductPrice>
                   </PriceDetail>
                 </Product>
                 ))

@@ -13,8 +13,18 @@ const cartSlice = createSlice({
       state.products.push(action.payload);
       state.total += action.payload.price *action.payload.quantity;
     },
+    deleteProduct:(state, action) => {
+      state.quantity -= 1;
+      state.products =  state.products.filter((product, index)  => index !== action.payload.index) //problem if two of the same item
+      state.total = state.total - action.payload.price;
+    },
+    deleteAllProducts:(state) => {
+      state.quantity = 0;
+      state.products = [];
+      state.total = 0
+    },
   },
 });
 
-export const {addProduct} = cartSlice.actions;
+export const {addProduct, deleteProduct, deleteAllProducts} = cartSlice.actions;
 export default cartSlice.reducer;

@@ -29,7 +29,7 @@ const ImageContainer = styled.div`
 const Image = styled.img`
   width: 100%;
   height: 90vh;
-  object-fit: cover;
+  object-fit: contain;
   ${tablet({ height: '50vh'})}
   ${mobile({ height: '40vh'})}
 `
@@ -78,6 +78,10 @@ const FilterColor = styled.div`
   background-color: ${props=>props.color};
   margin: 0px 5px;
   cursor: pointer;
+
+  &:hover{
+    opacity: .8;
+  }
 `
 
 const FilterSize = styled.select`
@@ -112,13 +116,13 @@ const Amount = styled.span`
 `
 const Button = styled.button`
   padding: 15px;
-  border: 2px solid teal;
+  border: ${props => props.type === 'disabled' ? '2px solid lightgray' : '2px solid teal'};
   background-color: white;
-  cursor:pointer;
+  cursor: ${props => props.type === 'disabled' ? 'not-allowed' : 'pointer'};
   font-weight: 500;
 
   &:hover{
-    background-color: #f8f4f4;
+    ${props => props.type !== 'disabled' &&  'background-color: #f8f4f4'};
   }
 `
 
@@ -127,8 +131,8 @@ const Product = () => {
   const id = location.pathname.split('/')[2];
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
-  const [color, setColor] = useState('');
-  const [size, setSize] = useState('');
+  const [color, setColor] = useState(false);
+  const [size, setSize] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(()=>{
@@ -169,7 +173,7 @@ const Product = () => {
           <Price>$ {product.price}</Price>
           <FilterContainer>
             <Filter>
-              <FilterTitle>Color</FilterTitle>
+              <FilterTitle>Choose Color</FilterTitle>
               {product.color?.map(color =>(
                 <FilterColor color={color} key={color} onClick={()=> setColor(color)}></FilterColor>
               ))}
@@ -177,6 +181,7 @@ const Product = () => {
             <Filter>
               <FilterTitle>Size</FilterTitle>
               <FilterSize onChange={(e)=> setSize(e.target.value)}>
+                <FilterSizeOption>Size</FilterSizeOption>
               {product.size?.map(size =>(
                 <FilterSizeOption key={size}>{size}</FilterSizeOption>
               ))}
@@ -189,7 +194,10 @@ const Product = () => {
               <Amount>{quantity}</Amount>
               <Add onClick={() => handleQuantity("inc")}/>
             </AmountContainer>
-            <Button onClick={handleClick}>Add to Cart</Button>
+            {color && size
+              ?  <Button onClick={handleClick}>Add to Cart</Button>
+              :  <Button type='disabled' disabled>Add to Cart</Button>
+            }
           </AddContainer>
         </InfoContainer>
       </Wrapper>
