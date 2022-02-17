@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import {Send} from '@material-ui/icons';
 import {mobile, tablet} from './../responsive';
@@ -24,28 +25,20 @@ const Description = styled.div`
   ${mobile({fontSize:'20px'})};
 `
 
-const InputContainer = styled.div`
-  width: 50%;
+const Button = styled.div`
+  width: 100%;
   height: 40px;
-  background-color: white;
   display: flex;
-  justify-content: space-between;
-  border: 1px solid lightgray;
-  ${mobile({width:'80%'})};
+  background-color:teal;
+  justify-content: center;
+  align-items: center;
 `
 
-const Input = styled.input`
-  border: none;
-  flex: 8;
-  padding-left: 20px;
-`
-
-const Button = styled.button`
-  flex: 1;
-  border: none;
-  background-color: teal;
-  color: white;
-  cursor: pointer;
+const ButtonText = styled.h1`
+  font-size: 24px;
+  font-weight: 500;
+  margin-right: 5px;
+  ${mobile({fontSize:'18px'})};
 `
 
 const Newsletter = () => {
@@ -53,12 +46,13 @@ const Newsletter = () => {
     <Container>
       <Title>Newsletter</Title>
       <Description>Get timely updates from your favorite products.</Description>
-      <InputContainer>
-        <Input placeholder='Your email'/>
+      <Link style={{width:'40%', color:'white', textDecoration:'none'}} to='/register'>
         <Button>
+          <ButtonText>Sign Up</ButtonText>
           <Send/>
         </Button>
-      </InputContainer>
+      </Link>
+
     </Container>
   )
 }

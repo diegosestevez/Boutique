@@ -96,10 +96,10 @@ const Navbar = () => {
           </Link>
         </Center>
         <Right>
-          <Link to="/register">
+          <Link to="/register" style={{textDecoration:'none', color:'black'}}>
             <MenuItem>NEWSLETTER</MenuItem>
           </Link>
-          <Link to="/cart">
+          <Link to="/cart" style={{textDecoration:'none', color:'black'}}>
             <MenuItem>
               <Badge badgeContent={quantity} color="secondary">
                 <ShoppingCartOutlined/>

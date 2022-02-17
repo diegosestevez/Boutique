@@ -19,7 +19,8 @@ const userSchema = new mongoose.Schema(
     },
     password:{
       type: String,
-      required: [true, 'User requires a password']
+      // required: [true, 'User requires a password']
+      default: 'test1234'
     },
     isAdmin:{
       type: Boolean,

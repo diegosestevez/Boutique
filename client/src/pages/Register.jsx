@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useState, useRef} from 'react';
+import {useNavigate, Link} from 'react-router-dom';
 import styled from 'styled-components';
 import {mobile, tablet} from './../responsive';
+import {publicRequest} from './../requestMethods';
 
 const Container = styled.div`
   width: 100vw;
@@ -15,6 +17,18 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`
+const Message = styled.div`
+  width: 50%;
+  height: 25px;
+  top: -20%;
+  position: absolute;
+  padding: 10px 0;
+  /* background-color: teal; */
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  transition: top .3s ease-out;
 `
 
 const Wrapper = styled.div`
@@ -32,6 +46,7 @@ const Title= styled.h1`
 
 const Form = styled.form`
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
 `
 
@@ -56,24 +71,58 @@ const Button = styled.button`
   cursor: pointer;
 `
 
-
 const Register = () => {
+  const [name, setName] = useState(false);
+  const [email, setEmail] = useState(false);
+  const [phone, setPhone] = useState(false);
+  const [confirmMsg, setConfirmMsg] = useState('');
+
+  const navigate = useNavigate();
+
+  const message = useRef();
+  const setMessageCSS = (cssText) =>{
+    return message.current.style.cssText = cssText;
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try{
+      if (name && email && phone){
+        const res = await publicRequest.post('/auth/signup', {
+          username:name,
+          email:email,
+          phone:phone
+        });
+
+        setMessageCSS('background-color:teal;top:0');
+        setConfirmMsg('Sign Up Successful! Redirecting...');
+
+        setTimeout(() => navigate('/'), 1200);
+      }else{
+      throw 'missing form fields'
+      }
+    }catch(err){
+      setMessageCSS('background-color:red;top:0');
+      setConfirmMsg('Sign Up Not Successful, Please Try Again...');
+    }
+  }
+
+
   return (
     <Container>
+     <Message ref={message}>{confirmMsg}</Message>
       <Wrapper>
-        <Title>CREATE AN ACCOUNT</Title>
+        <Title>NEWLETTER SIGNUP</Title>
         <Form>
-          <Input placeholder='firstname'/>
-          <Input placeholder='lastname'/>
-          <Input placeholder='username'/>
-          <Input placeholder='email'/>
-          <Input placeholder='password'/>
-          <Input placeholder='password confirm'/>
+          <Input type='text'  placeholder='fullname (Jane Doe)' required onChange={(e => setName(e.target.value))}/>
+          <Input type='email'  placeholder='email (janedoe@gmail.com)' required onChange={(e => setEmail(e.target.value))}/>
+          <Input type='number' placeholder='phone number (6364517890)' minlength="7" required onChange={(e => setPhone(e.target.value))}/>
           <Agreement>
-            By creating an account, I consent to the processing of my personal data
-            in accordance with the <b>PRIVACY POLICY</b>
+            By signing up to receive the BOUTIQUE monthly newsletter, I consent to the processing of my personal data
+            in accordance with the following <b>TERMS & CONDITIONS</b>
           </Agreement>
-          <Button>CREATE</Button>
+          <Button onClick={handleSubmit}>SIGN UP</Button>
+          <Link to='/' style={{color:'black', marginTop: '10px'}}>Home</Link>
         </Form>
       </Wrapper>
     </Container>
