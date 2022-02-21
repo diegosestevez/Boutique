@@ -8,7 +8,8 @@ router.get('/income', verifyToken.protect, verifyToken.restrictToAdmin, orderCon
 router
 .route('/')
 .get(verifyToken.protect, verifyToken.restrictToAdmin, orderController.getAllOrders)
-.post(verifyToken.protect, orderController.newOrder);
+// .post(verifyToken.protect, orderController.newOrder);
+.post(orderController.newOrder);
 
 router
 .route('/:id')

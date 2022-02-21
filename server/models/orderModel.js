@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema(
   {
-    userId:{
+    id:{
       type: String,
-      required: [true, 'User is required']
+      required: [true, 'Order requires an id']
     },
     products:[
       {
@@ -14,6 +14,15 @@ const orderSchema = new mongoose.Schema(
         quantity:{
           type: Number,
           default: 1
+        },
+        img:{
+          type: String
+        },
+        title:{
+          type: String
+        },
+        price:{
+          type: Number
         }
       }
     ],
@@ -27,7 +36,7 @@ const orderSchema = new mongoose.Schema(
     },
     status:{
       type: String,
-      default: "Pending"
+      default: "Success"
     }
   },
   { timestamps: true }
