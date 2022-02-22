@@ -93,10 +93,7 @@ const Footer = () => {
       <Left>
         <Logo>BOUTIQUE.</Logo>
         <Description>
-          Customer-focused team players are becoming actionable capability experts.
-          Our Corporate Enterprise solution offers low hanging fruit a suite of end-to-end offerings.
-          We aim to proactively virtualise our cloud by globally incentivizing our world-class wholesale alignments.
-          Going forward, our next-generation industry leader will deliver value to prince2 practitioners.
+          Age and size are only numbers. It's the attitude you bring to clothes that make the difference. Everything I do is a matter of heart, body and soul. I always thought what you wore underneath was as important as what you wear on top. Everything I do is a matter of heart, body and soul. Delete the negative; accentuate the positive!
         </Description>
         <SocialContainer>
           <SocialIcon color='3b5999'>
@@ -120,8 +117,7 @@ const Footer = () => {
           <ListItem>Cart</ListItem>
           <ListItem>Men's Fashion</ListItem>
           <ListItem>Women's Fashion</ListItem>
-          <ListItem>Accessories</ListItem>
-          <ListItem>My Account</ListItem>
+          <ListItem>Kid's Fashion</ListItem>
           <ListItem>Order Tracking</ListItem>
           <ListItem>Wishlist</ListItem>
           <ListItem>Terms</ListItem>
@@ -131,11 +127,11 @@ const Footer = () => {
         <Title>Contact</Title>
         <ContactItem>
           <Room style={{marginRight:'10px'}}/>
-          622 Dixie Path, South Tobinchester 98336
+          101 Granville Street, Vancouver BC, V6M 4J7
         </ContactItem>
         <ContactItem>
           <Phone style={{marginRight:'10px'}}/>
-          +1 800 234 5678
+          +604 234 5678
         </ContactItem>
         <ContactItem>
           <MailOutline style={{marginRight:'10px'}}/>

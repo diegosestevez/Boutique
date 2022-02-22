@@ -81,15 +81,6 @@ const Description = styled.p`
     fontSize: '18px'
   })};
 `
-const Button = styled.button`
-  padding: 10px;
-  font-size: 20px;
-  background-color: transparent;
-  cursor: pointer;
-  ${tablet({fontSize: '18px'})};
-`
-
-
 
 const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0)
@@ -117,7 +108,6 @@ const Slider = () => {
               <InfoContainer>
                 <Title>{item.title}</Title>
                 <Description>{item.desc}</Description>
-                <Button>SHOP NOW</Button>
               </InfoContainer>
             </Slide>
           ))}

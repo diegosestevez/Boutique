@@ -1,23 +1,23 @@
 export const sliderItems = [
   {
     id:1,
-    img:"https://freepngimg.com/thumb/model/4-2-model-free-png-image.png",
-    title:"WINTER SALE",
-    desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF ON NEW ARRIVALS.",
+    img:"/img/slider1.png",
+    title:"SPECIAL DEAL",
+    desc: "GET FREE SHIPPING WITH EACH ONLINE PURCHASE THIS MONTH.",
     bg: "f5fafd"
   },
   {
     id:2,
-    img:"https://freepngimg.com/thumb/girl/6-2-girl-free-png-image.png",
-    title:"SUMMER SALE",
-    desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF ON NEW ARRIVALS.",
+    img:"/img/slider2.png",
+    title:"ACCESSORIZE",
+    desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF NEW IN STORE ARRIVALS.",
     bg: "fcf1ed"
   },
   {
     id:3,
-    img:"https://freepngimg.com/thumb/girl/8-2-girl-picture.png",
-    title:"POPULAR SALE",
-    desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF ON NEW ARRIVALS.",
+    img:"/img/slider3.png",
+    title:"POPULAR SALE RETURNS",
+    desc: "SAVE THE DATE ON AUGUST 4TH FOR ONLINE DEALS UP 60% OFF!",
     bg: "fbf0f4"
   }
 ]
@@ -25,19 +25,19 @@ export const sliderItems = [
 export const categories = [
    {
      id: 1,
-     img: "https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+     img: "/img/category1.jpeg",
      title: "WOMENS",
      cat:"womens"
    },
    {
      id: 2,
-     img: "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+     img: "/img/category2.jpg",
      title: "MENS",
      cat:"mens"
    },
    {
      id: 3,
-     img: "https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+     img: "/img/category3.jpg",
      title: "KIDS",
      cat:"kids"
    },

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {ShoppingCartOutlined, SearchOutlined, FavoriteBorderOutlined} from '@material-ui/icons'
+import {ShoppingCartOutlined} from '@material-ui/icons'
 import {Link} from 'react-router-dom'
 
 //Info component must be defined before parent Container in order to apply pseudo elements
@@ -74,15 +74,9 @@ const Product = ({item}) => {
         <Image src={item.img}/>
         <Info>
           <Icon>
-            <ShoppingCartOutlined/>
-          </Icon>
-          <Icon>
             <Link to={`/product/${item._id}`}>
-              <SearchOutlined/>
+              <ShoppingCartOutlined/>
             </Link>
-          </Icon>
-          <Icon>
-            <FavoriteBorderOutlined/>
           </Icon>
         </Info>
       </Container>

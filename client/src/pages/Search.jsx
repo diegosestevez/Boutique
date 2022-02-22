@@ -5,7 +5,6 @@ import Announcement from './../components/Announcement';
 import Product from './../components/Product';
 import Newsletter from './../components/Newsletter';
 import Footer from './../components/Footer';
-import {mobile, tablet} from './../responsive';
 import {useLocation} from 'react-router-dom';
 import {publicRequest} from './../requestMethods';
 
@@ -21,6 +20,21 @@ const ProductContainer = styled.div`
 const SearchText = styled.p`
   margin: 10px 0px 10px 10px;
   font-size: 20px;
+`
+
+const NoResultsContainer = styled.div`
+height: 70vh;
+background-color: #f5fafd;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0 15%;
+text-align: center;
+`
+const NoResultsText = styled.h1`
+  font-size: 20px;
+  font-weight: 500;
 `
 
 const Search = () =>{
@@ -50,11 +64,18 @@ const Search = () =>{
       <Navbar/>
       <Announcement/>
         <SearchText><strong>{filteredProducts.length}</strong> results found for <strong>{searchTerm.replace(/%20/g, " ")}</strong></SearchText>
+        {filteredProducts.length > 0
+        ?
         <ProductContainer>
         {filteredProducts && filteredProducts.map((filteredProduct, index)=>(
           <Product item={filteredProduct} key={filteredProduct._id}/>
         ))}
         </ProductContainer>
+        :
+        <NoResultsContainer>
+          <NoResultsText>Your search returned no results. Please make sure not to include special characters</NoResultsText>
+        </NoResultsContainer>
+      }
       <Newsletter/>
       <Footer/>
     </Container>
