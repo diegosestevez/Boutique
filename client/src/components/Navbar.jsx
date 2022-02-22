@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {mobile, tablet} from './../responsive';
 import styled from 'styled-components';
 import Badge from '@material-ui/core/Badge';
@@ -23,18 +23,13 @@ const Left = styled.div`
   display: flex;
   align-items: center;
 `
-const Language = styled.span`
-  font-size: 14px;
-  cursor: pointer;
-  ${mobile({display:"none"})};
-`
 const SearchContainer = styled.div`
   border: 0.5px solid lightgrey;
   display: flex;
   align-items: center;
-  margin-left: 25px;
+  margin-left: 5px;
   padding: 5px;
-  ${tablet({marginLeft:"10px"})};
+  ${tablet({marginLeft:"5px"})};
   ${mobile({marginLeft:"3px"})};
 `
 const Input = styled.input`
@@ -77,15 +72,18 @@ const MenuItem = styled.div`
 `
 
 const Navbar = () => {
-  const quantity = useSelector(state => state.cart.quantity)
+  const quantity = useSelector(state => state.cart.quantity);
+  const [searchTerm, setSearchTerm] = useState('');
+
   return (
     <Container>
       <Wrapper>
         <Left>
-          <Language>EN</Language>
           <SearchContainer>
-            <Input placeholder='search'/>
-            <Search style={{color:'gray', fontSize:16}}/>
+            <Input placeholder='search' onChange={(e) => setSearchTerm(e.target.value)}/>
+            <Link to={`/search/${searchTerm}`}>
+              <Search style={{color:'gray', fontSize:16, cursor:'pointer'}}/>
+            </Link>
           </SearchContainer>
         </Left>
         <Center>
