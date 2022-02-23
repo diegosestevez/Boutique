@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import Product from './Product';
-// import {popularProducts} from './../data';
 import axios from 'axios';
 
 const Container = styled.div`
@@ -28,23 +27,6 @@ const Products = ({cat, filters, sort}) => {
     }
     getProducts()
   },[cat]);
-
-  // useEffect(()=>{
-  //   let itemArray = [];
-  //   if(cat){
-  //     const {color, size} = filters
-  //
-  //     products.forEach(item => {
-  //       if(color === undefined || size === undefined) itemArray.push(item);
-  //
-  //       const checkColor = item.color.every(el => item.color.includes(color));
-  //       const checkSize = item.size.every(el => item.size.includes(size));
-  //
-  //       if(checkColor && checkSize) itemArray.push(item)
-  //     });
-  //   }
-  //   setFilteredProducts([...itemArray]);
-  // },[products, cat, filters])
 
   useEffect(()=>{
     cat && setFilteredProducts(

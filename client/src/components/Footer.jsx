@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {Facebook, Pinterest, Twitter, Instagram, Room, Phone, MailOutline} from '@material-ui/icons';
 import {tablet} from './../responsive';
+import {Link} from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -78,7 +79,7 @@ const Right = styled.div`
 `
 
 const ContactItem = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
 `
@@ -93,7 +94,7 @@ const Footer = () => {
       <Left>
         <Logo>BOUTIQUE.</Logo>
         <Description>
-          Age and size are only numbers. It's the attitude you bring to clothes that make the difference. Everything I do is a matter of heart, body and soul. I always thought what you wore underneath was as important as what you wear on top. Everything I do is a matter of heart, body and soul. Delete the negative; accentuate the positive!
+          Age and size are only numbers. It's the attitude you bring to clothes that make the difference. Everything we do is a matter of heart, body and soul.  Delete the negative; accentuate the positive!
         </Description>
         <SocialContainer>
           <SocialIcon color='3b5999'>
@@ -113,14 +114,21 @@ const Footer = () => {
       <Center>
         <Title>Useful Links</Title>
         <List>
-          <ListItem>Home</ListItem>
-          <ListItem>Cart</ListItem>
-          <ListItem>Men's Fashion</ListItem>
-          <ListItem>Women's Fashion</ListItem>
-          <ListItem>Kid's Fashion</ListItem>
-          <ListItem>Order Tracking</ListItem>
-          <ListItem>Wishlist</ListItem>
-          <ListItem>Terms</ListItem>
+          <ListItem>
+            <Link to='/' style={{textDecoration:'none', color:'black'}}>Home</Link>
+          </ListItem>
+          <ListItem>
+            <Link to='/cart' style={{textDecoration:'none', color:'black'}}>Cart</Link>
+          </ListItem>
+          <ListItem>
+            <Link to='/products/mens' style={{textDecoration:'none', color:'black'}}>Men's Fashion</Link>
+          </ListItem>
+          <ListItem>
+            <Link to='/products/womens' style={{textDecoration:'none', color:'black'}}>Women's Fashion</Link>
+          </ListItem>
+          <ListItem>
+            <Link to='/products/kids' style={{textDecoration:'none', color:'black'}}>Kid's Fashion</Link>
+          </ListItem>
         </List>
       </Center>
       <Right>

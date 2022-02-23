@@ -260,7 +260,7 @@ const Cart = () => {
                 </SummaryItem>
                 <StripeCheckout
                   name='Boutique'
-                  image='./favicon.ico'
+                  image='/img/logo.png'
                   description={`Your total is ${cart.total} dollars`}
                   billingAddress
                   shippingAddress
