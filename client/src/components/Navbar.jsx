@@ -29,8 +29,7 @@ const SearchContainer = styled.div`
   align-items: center;
   margin-left: 5px;
   padding: 5px;
-  ${tablet({marginLeft:"5px"})};
-  ${mobile({marginLeft:"3px"})};
+  ${mobile({marginLeft:"15px"})};
 `
 const Input = styled.input`
   border: none;
@@ -45,7 +44,6 @@ const Logo = styled.h1`
   font-weight: bold;
   ${mobile({
     fontSize:"20px",
-    marginLeft:'10px'
   })};
 `
 
@@ -55,7 +53,6 @@ const Right = styled.div`
   align-items: center;
   justify-content: flex-end;
   ${mobile({
-    flex: 2,
     justifyContent:"center"
   })};
 `
