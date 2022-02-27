@@ -1,5 +1,5 @@
 # Boutique
-Boutique is an online clothing store created with the MERN stack + Redux and powered by the stripe API. This project is comprised of three components, two web applications and one API. 
+Boutique is an online clothing store created with the MERN stack + Redux and powered by the stripe API. This project is comprised of two web applications and one API. 
 
 <span>
 <img width="300" height='120' alt="image" src="https://user-images.githubusercontent.com/33880938/155863430-2325af2e-a5b9-4e6a-a946-5b4b33a28316.png">
